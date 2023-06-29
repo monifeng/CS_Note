@@ -80,25 +80,29 @@ git push -u origin main
 
 ## 2. 连接远程仓库的一般步骤
 
+
+
+
+
 1. 初始化本地仓库，在gitbash界面进入某个文件夹，然后输入`git init`；
 
-2. 确认是否生成SSH并且绑定到自己账号（如果已绑定可以忽略这一步）；
+2. 切换分支到main（github专用）
 
-3. 连接远程仓库：
+3. 确认是否生成SSH并且绑定到自己账号（如果已绑定可以忽略这一步）；
+
+4. 连接远程仓库：
 
    `git remote add origin "YOUR GITHUB REPOSETORIES ADDRESS"`
 
    ![image-20230423151947168](C:\Users\OMEN\AppData\Roaming\Typora\typora-user-images\image-20230423151947168.png)
 
-4. 如果默认生成了README.md，一定要重新先gitpull，同步远程仓库，然后再进行修改，否则会出现错误；
+5. 如果默认生成了README.md，一定要重新先gitpull，同步远程仓库，然后再进行修改，否则会出现错误；
 
    ![image-20230423152101628](C:\Users\OMEN\AppData\Roaming\Typora\typora-user-images\image-20230423152101628.png)
 
-5. `git pull --rebase origin main` 我的仓库默认分支为main，可以是其他分支，但建议为main，保存的会直接修改到main上面。
+6. `git pull --rebase origin main` 我的仓库默认分支为main，可以是其他分支，但建议为main，保存的会直接修改到main上面。
 
-6. git push -u origin（第一次）；
+7. `git branch -m master main` github上没有master分支而只有main分支，直接改名本地分支就行了。
 
-
-
-
+8. `git push -u origin main`（第一次），过后就仅需要`git push`了
 

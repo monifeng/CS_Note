@@ -54,7 +54,7 @@ Reactor正是通过IO多路复用来达到事件驱动的目的。
 - 多线程模型
 - 主从多线程模型
 
-通过两Reactor和Handler两大角色组成：
+通过Reactor和Handler两大角色组成：
 
 - Reactor：主要负责连接的建立，监听IO事件，IO事件读写以及将IO事件分发到Handlers进行处理
 - Handler：主要负责业务逻辑的处理；
@@ -128,7 +128,7 @@ void TcpConnection::send(const StringPiece& message)
       void (TcpConnection::*fp)(const StringPiece& message) = &TcpConnection::sendInLoop;
       loop_->runInLoop(
           std::bind(fp,
-                    this,     // FIXME
+                    this,     // FIXME 把this改为智能指针。
                     message.as_string()));
                     //std::forward<string>(message)));
     }   
@@ -171,6 +171,12 @@ muduo 在 TCP 这一层面解决了“当你打算关闭网络连接的时候，
 在高并发的情况发，无论如何提升上限都可能会出错，所以一个比较优雅的办法是：
 
 始终预留一个空闲的fd，遇到错误，立刻关闭空闲，接收socket，然后立刻关闭，打开空闲，这样就断开了客户端的连接。
+
+
+
+### 05 LT会反复触发可写事件
+
+先不关注可写事件，直接往Socket中写，写不完的存到Buffer中，然后再关注可写事件。
 
 
 
